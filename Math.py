@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 pi = math.pi
 h = constants.h
 G = constants.G
-m_h = constants.m_p    #Assuming fully ionized hydrogen, so m_h = m_p, might be bad assumption
+m_h = constants.m_p    #Assuming fully ionized hydrogen
 m_e = constants.m_e
 
 K = (h**2/(5*m_e)) * (3/(8*pi))**(2/3)
@@ -38,8 +38,6 @@ def makestar(center_density, gridsize):
     return mass, radius
 
 
-
-#masses fro m 0.2 - 1.4 solar masses, in steps of 0.1
 m_sun = M_sun.to(u.kg).value
 r_sun = R_sun.to(u.m).value
 Masses = []
