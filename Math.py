@@ -42,6 +42,7 @@ m_sun = M_sun.to(u.kg).value
 r_sun = R_sun.to(u.m).value
 Masses = []
 Radii = []
+kept_central_densities = []
 
 #loop through central densities until 0.2 solar mass found, save 0.2 - 1.4 values
 central_densities = np.logspace(7, 17, num=1000)
@@ -53,6 +54,7 @@ for density in central_densities:
     if mass_solar >= 0.2:
         Masses.append(mass_solar)
         Radii.append(radius/r_sun)
+        kept_central_densities.append(density)
 
     if mass_solar > 1.4:
         break
@@ -67,7 +69,6 @@ plt.xlabel('Radius (1000 km)')
 plt.title('Mass-Radius Relation for White Dwarfs')
 plt.grid()
 plt.show()
-
 
 
 

@@ -50,6 +50,7 @@ def makestar(center_density, gridsize):
 
 Masses = []
 Radii = []
+kept_central_densities = []
 
 #loop through central densities until 0.2 solar mass found, save 0.2 - 1.4 values
 central_densities = np.logspace(-1, 5, num=1000)
@@ -59,6 +60,7 @@ for density in central_densities:
     if mass >= 0.2:
         Masses.append(mass)
         Radii.append(radius)
+        kept_central_densities.append(density*density0/1000)
 
     if mass> 1.4:
         break
@@ -75,8 +77,25 @@ plt.grid()
 plt.show()
 
 
+# plot core density vs mass
+# core density quickly exceeds the relativistic limit, but that only holds for the center of the white dwarf
+plt.plot(Masses, kept_central_densities)
+plt.xlabel('Mass (Solar Masses)')
+plt.ylabel('Central Density (g/cm^3)')
+plt.title('Core Density vs Mass')
+plt.axhline(1e6, linestyle="--", c='red')
+plt.legend(["Computed Model", "Ultra-Relativistic Limit"])
+plt.grid()
+plt.show()
 
+avg_densities=  [(Masses[i] * M0) / (4 * np.pi * (Radii[i] * R0)**3) * 1e-3 for i in range(len(Masses))]
 
-
-
-
+# plot average density vs mass, stays well below limit as expected
+plt.plot(Masses, avg_densities)
+plt.xlabel('Mass (Solar Masses)')
+plt.ylabel('Average Density (g/cm^3)')
+plt.title('Average Density vs Mass')
+plt.axhline(1e6, linestyle="--", c='red')
+plt.legend(["Computed Model", "Ultra-Relativistic Limit"])
+plt.grid()
+plt.show()
