@@ -62,14 +62,22 @@ for density in central_densities:
 #convert radii to 1e3 km
 Radii_1000km = np.array(Radii)*r_sun/1e6
 
-#plot mass-radius relation
+#plot mass-radius relation and plot y = x^(1/3) for comparison as well
+x=[]
+for mass in Masses:
+    x.append(mass**(-1/3))
+    
+scale = Radii_1000km[0]/x[0]
+x = (np.array(x)+0.1)*scale
+
 plt.plot(Radii_1000km, Masses)
+plt.plot(x, Masses, linestyle="--", c='red')
 plt.ylabel('Mass (Solar Masses)')
 plt.xlabel('Radius (1000 km)')
+plt.legend(["Computed Model", "M^(-1/3) Relation (offset added for clarity)"])
 plt.title('Mass-Radius Relation for White Dwarfs')
 plt.grid()
 plt.show()
-
 
 
 
